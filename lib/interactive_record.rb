@@ -3,11 +3,11 @@ require 'active_support/inflector'
 
 class InteractiveRecord
   
-  def table_name 
+  def self.table_name 
     self.to_s.pluralize
   end
   
-  def column_names
+  def self.column_names
     DB[:conn].results_as_hash = true 
     sql = "PRAGMA table_info('#{table_name}')"
     table_info = DB[:conn].execute(sql)
@@ -20,12 +20,16 @@ class InteractiveRecord
   end
   
   def table_name_for_insert
+    self.class.table_name
   end 
   
   def col_names_for_insert
+    self.class.column_names.delete_if {|col| col == "id"}.join(", ")
   end 
   
   def values_for_insert
+    values = []
+    self.class
   end 
   
   def save
