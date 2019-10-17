@@ -5,7 +5,11 @@ class InteractiveRecord
   
   def table_name 
     self.to_s.pluralize
-  end\
+  end
+  
+  def column_names
+    
+  end
   
   def table_name_for_insert
   end 
